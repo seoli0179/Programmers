@@ -1,9 +1,8 @@
 import java.util.Arrays;
 
-// tip: each public class is put in its own file
+// https://school.programmers.co.kr/learn/courses/30/lessons/68645
 public class main
 {
-    // tip: arguments are passed via the field below this editor
     public static void main(String[] args)
     {
         Solution s = new Solution();
