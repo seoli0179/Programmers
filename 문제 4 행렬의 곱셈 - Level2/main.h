@@ -34,8 +34,6 @@ class Solution {
 
         for(int i = 0; i < answer.length; i++){
             for(int j = 0; j < answer[0].length; j++){
-                int A = 0;
-                int B = 0;
                 int sum = 0;
                 for(int k = 0; k < arr1[i].length; k++){
                     sum += arr1[i][k] * arr2[k][j];
