@@ -1,4 +1,5 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/12949
+// A 행열 열의 개수 = B 행열 행의 개수
 // tip: each public class is put in its own file
 public class main
 {
