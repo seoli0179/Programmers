@@ -13,5 +13,6 @@
 - [문제 9. 3진법 뒤집기 - Level1 (231125)](https://github.com/seoli0179/Programmers/blob/master/%EB%AC%B8%EC%A0%9C%2009%203%EC%A7%84%EB%B2%95%20%EB%92%A4%EC%A7%91%EA%B8%B0%20-%20Level1/main.java)
 - [문제 10. 이진 변환 반복하기 - Level2 (231126)](https://github.com/seoli0179/Programmers/blob/master/%EB%AC%B8%EC%A0%9C%2010%20%EC%9D%B4%EC%A7%84%20%EB%B3%80%ED%99%98%20%EB%B0%98%EB%B3%B5%ED%95%98%EA%B8%B0%20-%20Level2/main.java)
 - [문제 11. 문자열 내 p와 y의 개수 - Level1 (231127)](https://github.com/seoli0179/Programmers/blob/master/%EB%AC%B8%EC%A0%9C%2011%20%EB%AC%B8%EC%9E%90%EC%97%B4%20%EB%82%B4%20p%EC%99%80%20y%EC%9D%98%20%EA%B0%9C%EC%88%98%20-%20Level1/main.java)
+- [문제 12. 숫자 문자열과 영단어](https://github.com/seoli0179/Programmers/blob/master/%EB%AC%B8%EC%A0%9C%2012%20%EC%88%AB%EC%9E%90%20%EB%AC%B8%EC%9E%90%EC%97%B4%EA%B3%BC%20%EC%98%81%EB%8B%A8%EC%96%B4/main.java)
 
 
