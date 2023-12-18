@@ -1,155 +1,109 @@
-import java.util.ArrayList;
+import java.util.*;
 
-// https://school.programmers.co.kr/learn/courses/30/lessons/87377
-
+// tip: each public class is put in its own file
 public class main
 {
+    // tip: arguments are passed via the field below this editor
     public static void main(String[] args)
     {
-        int[][] line = {{0, 1, -1}, {1, 0, -1}, {1, 0, 1}};
-
         Solution s = new Solution();
 
-        String[] str = s.solution(line);
+        String[] answer = s.solution(new int[][]{{2, -1, 4}, {-2, -1, 4}, {0, -1, 1}, {5, -8, -12}, {5, 8, 12}});
 
-        //System.out.println("Hello, world!" + str[0]);
-
-        for(int i=0;i<str.length;i++){
-            System.out.println(str[i]);
+        for(String str : answer){
+            System.out.println(str);
         }
 
+        
     }
-}
-
-class Point {
-
-    Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    int x;
-    int y;
 }
 
 class Solution {
 
     public String[] solution(int[][] line) {
         String[] answer = {};
-        String test = "";
-        
-        answer = calculate(line);
-        
-        return answer;
-    }
-    
-    public String[] calculate(int[][] line) {
 
-        ArrayList<Point> pointArr = new ArrayList<Point>();
-        
-        String str = "";
-        String[] answer;
-        
-        int minX = Integer.MAX_VALUE;
-        int minY = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE;
-        int maxY = Integer.MIN_VALUE;
-
-        int count = 0;
-
-        
-        for(int i = 0; i<line.length-1; i++){
-            for(int j = i + 1; j<line.length;j++){
-                double x = 0;
-                double y = 0;
-
-                double A = line[i][0];
-                double B = line[i][1];
-                double E = line[i][2];
-
-                double C = line[j][0];
-                double D = line[j][1];
-                double F = line[j][2];
-
-                if(A*D-B*C!=0){
-                    
-                    x = ((B * F) - (E * D)) / ((A * D) - (B * C));
-                    y = ((E * C) - (A * F)) / ((A * D) - (B * C));
-                    
-                    if(isInteger(x) && isInteger(y)){
-                        
-                        int xInt = (int)x;
-                        int yInt = (int)y;
-
-                        pointArr.add(new Point(xInt,yInt));
-                        
-                        minX = Math.min(minX,xInt);
-                        minY = Math.min(minY,yInt);
-                        maxX = Math.max(maxX,xInt);
-                        maxY = Math.max(maxY,yInt);
-
-                        int arrayX = pointArr.get(count).getX();
-                        int arrayY = pointArr.get(count).getY();
-                        
-                        //str += "(" + arrayX + ", " + arrayY + ") ";
-
-                        count++;
-                    }
-                    
+        List<Point> points = new ArrayList<>();
+        for (int i = 0; i < line.length; i++) {
+            for (int j = i + 1; j < line.length; j++) {
+                Point intersection = Intersection(line[i][0],line[i][1],line[i][2],line[j][0],line[j][1],line[j][2]);
+                if(intersection != null) {
+                    points.add(intersection);
                 }
-
-                
             }
         }
 
-        int answerSize;
+        Point min = getMinPoint(points);
+        Point max = getMaxPoint(points);
 
-        if(minY==maxY){
-            answerSize = 1;
-        }else{
-            answerSize = (minY<0)?minY*-1:minY;
-            answerSize += maxY + 1;
-        }
-        
+        int width = (int) (max.x - min.x + 1);
+        int height = (int) (max.y - min.y + 1);
 
-        answer = new String[answerSize];
-        
-        //str += "min(" + minX + ", " + minY + ") max(" + maxX + ", " + maxY +")" + "\n";
-        
-        int flag = 0;
-        int count2 = 0;
-        for(int j = minY ; j <= maxY; j++){
-            for(int i = minX ; i <= maxX; i++){
-                for(int z = 0; z < pointArr.size();z++){
-                    if(i == pointArr.get(z).getX() && j == (pointArr.get(z).getY()*(answerSize==1?1:-1))){
-                        str += "*";
-                        flag = 1;
-                        break;
-                    }
-                }
-                if(flag==0) str += ".";
-                flag = 0;
-            }
-            answer[count2++] = str;
-            str = "";
+        char[][] arr = new char[height][width];
+        for(char[] row : arr) {
+            Arrays.fill(row, '.');
         }
-        
-        
+
+        for(Point p : points) {
+            int x = (int)(p.x - min.x);
+            int y = (int)(max.y - p.y);
+            arr[y][x] = '*';
+        }
+
+        String[] result = new String[arr.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = new String(arr[i]);
+        }
+
+        answer = result;
+
+
         return answer;
-        
-    }
-    
-    public boolean isInteger(double num) {
-        return num % 1 == 0.0;
     }
 
-    
+    private Point Intersection(long A, long B, long E, long C, long D, long F) {
+
+        double x = (double)(B * F - E * D) / (A * D - B * C);
+        double y = (double)(E * C - A * F) / (A * D - B * C);
+
+        if(x % 1 != 0 || y % 1 != 0) 
+            return null;
+
+        return new Point((long)x, (long)y);
+    }
+
+    private Point getMinPoint(List<Point> points) {
+        long x = Long.MAX_VALUE;
+        long y = Long.MAX_VALUE;
+
+        for(Point p : points) {
+            if(p.x < x) x = p.x;
+            if(p.y < y) y = p.y;
+        }
+
+        return new Point(x, y);
+    }
+
+    private Point getMaxPoint(List<Point> points) {
+        long x = Long.MIN_VALUE;
+        long y = Long.MIN_VALUE;
+
+        for(Point p : points) {
+            if(p.x > x) x = p.x;
+            if(p.y > y) y = p.y;
+        }
+
+        return new Point(x, y);
+    }
+
+    private static class Point {
+
+        public final long x, y;
+        private Point(long x, long y){
+            this.x = x;
+            this.y = y;
+        }
+
+    }
+
 }
