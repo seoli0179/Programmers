@@ -1,6 +1,6 @@
 import java.util.*;
 
-// tip: each public class is put in its own file
+// https://school.programmers.co.kr/learn/courses/30/lessons/87377
 public class main
 {
     // tip: arguments are passed via the field below this editor
